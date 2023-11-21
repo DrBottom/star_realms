@@ -116,10 +116,6 @@ class Player:
     @staticmethod
     def attack_enemy(ctx: 'GameContext'):
         selected_enemy = Selector.select_opponent(ctx.opponents)
-        # Нет баз
-        # Есть базы
-        # Есть аванпосты
-        # Есть и базы, и аванпосты
         while any(outpost.hp <= ctx.pool.damage for outpost in selected_enemy.outposts):
             outposts_can_be_destroyed = list(filter(lambda x: x.hp <= ctx.pool.damage, selected_enemy.outposts))
             outpost_to_destroy = Selector.select_card(outposts_can_be_destroyed)
@@ -193,21 +189,34 @@ class AbstractAbilityPool(ABC):
 
 class Selector:
     @staticmethod
-    def select_card(cards: list[Card]) -> Card:
-        return cards[0]
-        # TODO
+    def select_card(cards: list[Card]):
+        print(cards, sep='\n')
+        a = int(input(f'Select card (input num from 1 to {len(cards)})'))
+        if a < 0 or a > len(cards):
+            return 'This card does not exist, try again', Selector.select_card(cards)
+        return cards[a-1]
 
     @staticmethod
     def select_ability(abilities: list[AbstractAbility]):
-        return abilities[0]
-        # TODO
+        print(abilities)
+        a = int(input(f'Select ability (input num from 1 to {len(abilities)})'))
+        if a < 0 or a > len(abilities):
+            return 'This ability does not exist, try again', Selector.select_ability(abilities)
+        return abilities[a-1]
 
     @staticmethod
     def select_opponent(enemies: list[Player]):
+        print(enemies)
+        a = int(input(f'Select enemy (input num from 1 to {len(enemies)})'))
+        if a < 0 or a > len(enemies):
+            return 'This enemy does not exist, try again', Selector.select_opponent(enemies)
         return enemies[0]
-        # TODO
 
     @staticmethod
     def yes_or_no(msg: str):
+        print(msg)
+        a = input('Input "yes" or "no"').lower()
+        if a != ('yes', 'no'):
+            Selector.yes_or_no(msg)
+            raise SyntaxError
         return True
-        # TODO
