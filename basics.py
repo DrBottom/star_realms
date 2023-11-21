@@ -157,15 +157,11 @@ class CardShop:
     def __init__(self, cards: CardPile):
         self.cards = cards
         self.current: list[Card] = [self.cards.draw() for _ in range(5)]
-        # self.explorers: list[Card] = [explorer_factory() for _ in range(10)]
 
     def draw_card(self, card: Card) -> Card:
         result = self.current.pop(self.current.index(card))
         self.current.append(self.cards.draw())
         return result
-
-    # def draw_explorer(self) -> Card:
-    #     return self.explorers.pop()
 
 
 class GameContext:
