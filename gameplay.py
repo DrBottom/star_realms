@@ -1,5 +1,4 @@
 import basics
-import cards
 
 
 class GameTurn:
