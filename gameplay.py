@@ -1,5 +1,5 @@
 import basics
-# TODO: импорт файла с картами
+import cards
 
 
 class GameTurn:
